@@ -1,6 +1,9 @@
 name: CI-CD
 
 on:
+  push:
+    branches: [ main ]
+  
   workflow_dispatch:
 
 jobs:
@@ -27,7 +30,7 @@ jobs:
             lupandrioli/rotten-potatoes:${{ github.run_number }}
   
   CD:
-    needs: [CI}
+    needs: [CI]
     runs-on: ubuntu-latest
     
     steps:
