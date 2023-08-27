@@ -5,6 +5,7 @@ kind: Deployment
 metadata:
   name: mongodb
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: mongodb
@@ -46,6 +47,7 @@ kind: Deployment
 metadata:
   name: web
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: web
