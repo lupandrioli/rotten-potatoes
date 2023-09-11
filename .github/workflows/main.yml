@@ -87,10 +87,9 @@ jobs:
           git add deployment_app.yml
           git commit -m "updated tag to ${{ env.GITHUB_SHORT_SHA }}"
           git push --set-upstream origin $BRANCH_NAME
-          cd -
           
-          gh pr create --repo 'https://github.com/lupandrioli/argocd-rotten-potatoes' --base main --head $BRANCH_NAME \
+          gh pr create --base main --head $BRANCH_NAME \
           --title 'Update ${{ env.IMAGE_NAME }} tag to ${{ env.GITHUB_SHORT_SHA }}' \
           --body 'PR created by Github Actions'
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
