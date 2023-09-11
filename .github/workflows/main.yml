@@ -65,7 +65,8 @@ jobs:
       - name: Clone gitops repo
         uses: actions/checkout@v3
         with:
-          repository: 'https://github.com/lupandrioli/argocd-rotten-potatoes'
+          repository: 'lupandrioli/argocd-rotten-potatoes'
+          ref: 'main'
           token: ${{ secrets.TOKEN_GITHUB }}
           path: 'manifests'
           persist-credentials: true
@@ -78,13 +79,15 @@ jobs:
       
       - name: Create branch and pull request
         run: |
-          BRANCH_NAME="cicd/update-image-tag-${{ env.GITHUB_SHORT_SHA }}"
+          BRANCH_NAME="cicd/update-image-tag-to-${{ env.GITHUB_SHORT_SHA }}"
+          git config --local user.name "lupandrioli"
+          git config --local user.email "${{ secrets.EMAIL_GITHUB }}"
           git branch -b $BRANCH_NAME
           git add manifests/deployment_app.yml
           git commit -m "updated tag to ${{ env.GITHUB_SHORT_SHA }}"
           git push --set-upsteam origin $BRANCH_NAME
           
-          gh pr create -B main -H $BRANCH_NAME \
+          gh pr create --base main --head $BRANCH_NAME \
           --title 'Update ${{ env.IMAGE_NAME }} tag to ${{ env.GITHUB_SHORT_SHA }}' \
           --body 'PR created by Github Actions'
         env:
