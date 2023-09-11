@@ -66,7 +66,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: 'lupandrioli/argocd-rotten-potatoes'
-          ref: 'master'
+          ref: 'main'
           token: ${{ secrets.TOKEN_GITHUB }}
           path: 'manifests'
           persist-credentials: true
@@ -86,7 +86,7 @@ jobs:
           git checkout -b $BRANCH_NAME
           git add deployment_app.yml
           git commit -m "updated tag to ${{ env.GITHUB_SHORT_SHA }}"
-          git push --set-upsteam origin $BRANCH_NAME
+          git push --set-upstream origin $BRANCH_NAME
           
           gh pr create --base main --head $BRANCH_NAME \
           --title 'Update ${{ env.IMAGE_NAME }} tag to ${{ env.GITHUB_SHORT_SHA }}' \
