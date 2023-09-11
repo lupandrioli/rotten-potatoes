@@ -83,7 +83,7 @@ jobs:
           cd manifests
           git config --local user.name "lupandrioli"
           git config --local user.email "${{ secrets.EMAIL_GITHUB }}"
-          git branch -b $BRANCH_NAME
+          git checkout -b $BRANCH_NAME
           git add deployment_app.yml
           git commit -m "updated tag to ${{ env.GITHUB_SHORT_SHA }}"
           git push --set-upsteam origin $BRANCH_NAME
